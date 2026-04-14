@@ -1,0 +1,23 @@
+.hero {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  background: white;
+}
+
+.error {
+  color: red;
+  text-align: center;
+}

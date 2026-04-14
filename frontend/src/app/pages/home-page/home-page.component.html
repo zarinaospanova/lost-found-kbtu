@@ -1,0 +1,27 @@
+<section class="hero">
+  <h1>KBTU Lost & Found Map</h1>
+  <p>Find lost items faster and help others return what they lost.</p>
+</section>
+
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
+
+<div class="stats">
+  <div class="stat-card">
+    <h3>{{ total }}</h3>
+    <p>Total Posts</p>
+  </div>
+  <div class="stat-card">
+    <h3>{{ lostCount }}</h3>
+    <p>Lost Items</p>
+  </div>
+  <div class="stat-card">
+    <h3>{{ foundCount }}</h3>
+    <p>Found Items</p>
+  </div>
+  <div class="stat-card">
+    <h3>{{ resolvedCount }}</h3>
+    <p>Resolved</p>
+  </div>
+</div>

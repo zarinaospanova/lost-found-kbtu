@@ -1,0 +1,44 @@
+<div class="container">
+  <h2 class="title">All Posts</h2>
+
+  <div class="posts-grid">
+    @for (post of posts; track post.id) {
+      <div class="card post-card">
+
+        <div class="post-header">
+          <h3>{{ post.title }}</h3>
+
+          <div class="badges">
+            <span class="badge {{ post.item_type }}">
+              {{ post.item_type }}
+            </span>
+
+            <span class="badge {{ post.status }}">
+              {{ post.status }}
+            </span>
+          </div>
+        </div>
+
+        <p class="description">
+          {{ post.description }}
+        </p>
+
+        <div class="info">
+          <p> {{ post.building_name }} - {{ post.location_name }}</p>
+          <p> {{ post.username }}</p>
+        </div>
+
+        <div class="actions">
+          <a [routerLink]="['/posts', post.id]" class="view-btn">
+            View Details →
+          </a>
+        </div>
+
+      </div>
+    }
+  </div>
+
+  @if (!posts.length) {
+    <p class="empty">No posts yet.</p>
+  }
+</div>

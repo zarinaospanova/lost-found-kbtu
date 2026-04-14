@@ -1,0 +1,22 @@
+#map {
+  width: 100%;
+  height: 600px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+:host ::ng-deep .custom-marker {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.35);
+}
+
+:host ::ng-deep .lost-marker {
+  background: #ef4444;
+}
+
+:host ::ng-deep .found-marker {
+  background: #22c55e;
+}

@@ -1,0 +1,53 @@
+<div class="container">
+
+  <h2 class="title">My Posts</h2>
+
+  @if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+  }
+
+  <div class="posts-grid">
+    @for (post of posts; track post.id) {
+      <div class="card post-card">
+
+        <div class="post-header">
+          <h3>{{ post.title }}</h3>
+
+          <div class="badges">
+            <span class="badge {{ post.item_type }}">
+              {{ post.item_type }}
+            </span>
+
+            <span class="badge {{ post.status }}">
+              {{ post.status }}
+            </span>
+          </div>
+        </div>
+
+        <p class="description">
+          {{ post.description }}
+        </p>
+
+        <div class="info">
+          <p> {{ post.building_name }} - {{ post.location_name }}</p>
+          <p> {{ post.date_event }}</p>
+        </div>
+
+        <div class="actions">
+          <a [routerLink]="['/posts', post.id]" class="view-btn">
+            Open →
+          </a>
+        </div>
+
+      </div>
+    }
+  </div>
+
+  @if (!posts.length && !errorMessage) {
+    <div class="empty-box">
+      <p>You don’t have any posts yet.</p>
+      <button routerLink="/create">Create your first post</button>
+    </div>
+  }
+
+</div>

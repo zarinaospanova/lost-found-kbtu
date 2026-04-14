@@ -1,0 +1,46 @@
+<div class="form-card">
+  <h2>Create Post</h2>
+
+  @if (successMessage) {
+    <p class="success">{{ successMessage }}</p>
+  }
+
+  @if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+  }
+
+  <input [(ngModel)]="title" placeholder="Title" />
+  <textarea [(ngModel)]="description" placeholder="Description"></textarea>
+
+  <select [(ngModel)]="item_type">
+    <option value="lost">Lost</option>
+    <option value="found">Found</option>
+  </select>
+
+  <input [(ngModel)]="date_event" type="date" />
+  <input [(ngModel)]="contact_info" placeholder="Contact info" />
+
+  <select [(ngModel)]="category">
+    <option value="">Select category</option>
+    @for (cat of categories; track cat.id) {
+      <option [value]="cat.id">{{ cat.name }}</option>
+    }
+  </select>
+
+  <select [(ngModel)]="location">
+    <option value="">Select location</option>
+    @for (loc of locations; track loc.id) {
+      <option [value]="loc.id">{{ loc.building }} - {{ loc.name }}</option>
+    }
+  </select>
+
+  <div class="selected-coords">
+    <p><b>Selected latitude:</b> {{ latitude ?? 'Not selected' }}</p>
+    <p><b>Selected longitude:</b> {{ longitude ?? 'Not selected' }}</p>
+    <p>Click on the map to choose the exact point.</p>
+  </div>
+
+  <div id="create-map"></div>
+
+  <button (click)="createPost()">Create</button>
+</div>
