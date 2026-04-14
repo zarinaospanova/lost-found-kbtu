@@ -39,15 +39,17 @@ class ItemPost(models.Model):
     date_event = models.DateField()
     contact_info = models.CharField(max_length=200)
 
+    image = models.ImageField(upload_to='items/', blank=True, null=True)
+
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='posts')
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='posts')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    latitude = models.FloatField(blank=True, null=True)
-    longitude = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.title

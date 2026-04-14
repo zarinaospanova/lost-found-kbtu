@@ -34,6 +34,24 @@
     }
   </select>
 
+  <div class="upload-block">
+    <label class="upload-title">Upload item photo</label>
+
+    <label class="file-upload">
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden>
+
+      <span class="upload-btn">
+        Choose Photo
+      </span>
+
+      @if (selectedFile) {
+        <span class="file-name">{{ selectedFile.name }}</span>
+      } @else {
+        <span class="file-placeholder">No file selected</span>
+      }
+    </label>
+  </div>
+
   <div class="selected-coords">
     <p><b>Selected latitude:</b> {{ latitude ?? 'Not selected' }}</p>
     <p><b>Selected longitude:</b> {{ longitude ?? 'Not selected' }}</p>

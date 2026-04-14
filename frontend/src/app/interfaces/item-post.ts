@@ -6,6 +6,7 @@ export interface ItemPost {
   status: 'open' | 'resolved';
   date_event: string;
   contact_info: string;
+  image?: string | null;
   latitude?: number | null;
   longitude?: number | null;
   user: number;

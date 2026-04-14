@@ -27,6 +27,8 @@ export class CreatePostPageComponent implements OnInit, AfterViewInit {
   latitude: number | null = null;
   longitude: number | null = null;
 
+  selectedFile: File | null = null;
+
   categories: Category[] = [];
   locations: Location[] = [];
 
@@ -81,30 +83,46 @@ export class CreatePostPageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
   createPost(): void {
     this.successMessage = '';
     this.errorMessage = '';
 
-    this.postService
-      .createPost({
-        title: this.title,
-        description: this.description,
-        item_type: this.item_type,
-        date_event: this.date_event,
-        contact_info: this.contact_info,
-        category: this.category,
-        location: this.location,
-        latitude: this.latitude,
-        longitude: this.longitude,
-      })
-      .subscribe({
-        next: () => {
-          this.successMessage = 'Post created successfully';
-          this.router.navigate(['/posts']);
-        },
-        error: () => {
-          this.errorMessage = 'Failed to create post';
-        },
-      });
+    const formData = new FormData();
+    formData.append('title', this.title);
+    formData.append('description', this.description);
+    formData.append('item_type', this.item_type);
+    formData.append('date_event', this.date_event);
+    formData.append('contact_info', this.contact_info);
+    formData.append('category', this.category);
+    formData.append('location', this.location);
+
+    if (this.latitude !== null) {
+      formData.append('latitude', String(this.latitude));
+    }
+
+    if (this.longitude !== null) {
+      formData.append('longitude', String(this.longitude));
+    }
+
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
+    }
+
+    this.postService.createPost(formData).subscribe({
+      next: () => {
+        this.successMessage = 'Post created successfully';
+        this.router.navigate(['/posts']);
+      },
+      error: () => {
+        this.errorMessage = 'Failed to create post';
+      },
+    });
   }
 }
