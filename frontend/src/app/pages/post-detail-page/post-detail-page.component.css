@@ -1,0 +1,108 @@
+/* карточка */
+.detail-card {
+  max-width: 750px;
+  margin: 30px auto;
+  padding: 24px;
+}
+
+/* header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* бейджи */
+.badges {
+  display: flex;
+  gap: 8px;
+}
+
+/* описание */
+.description {
+  margin: 15px 0;
+  color: #555;
+}
+
+/* сетка инфо */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  font-size: 14px;
+  color: #444;
+}
+
+/* координаты */
+.coords {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f3f4f6;
+  font-size: 13px;
+}
+
+/* кнопки */
+.actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+/* кнопка resolved */
+.resolve-btn {
+  background: #10b981;
+}
+
+.resolve-btn:hover {
+  background: #059669;
+}
+
+/* delete */
+.delete-btn {
+  background: #ef4444;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* COMMENTS */
+.comments {
+  max-width: 750px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+/* textarea */
+textarea {
+  width: 100%;
+  min-height: 100px;
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* комментарий */
+.comment-card {
+  border-top: 1px solid #eee;
+  padding: 12px 0;
+}
+
+/* имя */
+.comment-user {
+  font-weight: bold;
+}
+
+/* пусто */
+.empty {
+  text-align: center;
+  color: gray;
+}
+
+/* ошибка */
+.error {
+  color: red;
+  text-align: center;
+}

@@ -1,0 +1,16 @@
+<nav class="navbar">
+  <div class="nav-left">KBTU Lost & Found</div>
+
+  <div class="nav-links">
+    <a routerLink="/">Home</a>
+    <a routerLink="/posts">Posts</a>
+    <a routerLink="/map">Map</a>
+    <a routerLink="/create">Create</a>
+    <a routerLink="/my-posts">My Posts</a>
+  </div>
+
+  <div class="nav-right">
+    <span>{{ authService.currentUser()?.username }}</span>
+    <button (click)="logout()">Logout</button>
+  </div>
+</nav>
