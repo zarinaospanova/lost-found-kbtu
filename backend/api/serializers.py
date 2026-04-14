@@ -48,6 +48,7 @@ class ItemPostSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.name', read_only=True)
     location_name = serializers.CharField(source='location.name', read_only=True)
     building_name = serializers.CharField(source='location.building', read_only=True)
+    image = serializers.SerializerMethodField()
 
     class Meta:
         model = ItemPost
@@ -59,6 +60,7 @@ class ItemPostSerializer(serializers.ModelSerializer):
             'status',
             'date_event',
             'contact_info',
+            'image',
             'latitude',
             'longitude',
             'user',
@@ -81,3 +83,8 @@ class ItemPostSerializer(serializers.ModelSerializer):
             'location_name',
             'building_name',
         ]
+
+    def get_image(self, obj):
+        if not obj.image:
+            return None
+        return f"http://127.0.0.1:8000{obj.image.url}"

@@ -24,7 +24,7 @@ export class PostService {
     return this.http.get<ItemPost[]>(`${this.apiUrl}my/`);
   }
 
-  createPost(data: any): Observable<ItemPost> {
+  createPost(data: FormData): Observable<ItemPost> {
     return this.http.post<ItemPost>(this.apiUrl, data);
   }
 
