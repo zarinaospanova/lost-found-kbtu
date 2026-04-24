@@ -1,9 +1,11 @@
 .navbar {
   width: 100%;
   min-height: 64px;
-  padding: 0 32px;
+  padding: 30px 30px;
   box-sizing: border-box;
   background: linear-gradient(to right, #1e3a8a, #2563eb);
+  background: rgba(37, 99, 235, 0.85);
+  backdrop-filter: blur(12px);
   color: white;
 
   display: flex;
@@ -25,7 +27,13 @@
   gap: 18px;
 }
 
-.nav-links a,
+.nav-links a {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.3s;
+  padding: 8px 16px;
+}
 .nav-right a {
   color: white;
   text-decoration: none;
@@ -33,7 +41,12 @@
   font-size: 15px;
 }
 
-.nav-links a:hover,
+.nav-links a:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
 .nav-right a:hover {
   text-decoration: underline;
 }
@@ -50,17 +63,23 @@
 }
 
 .nav-right button {
-  padding: 8px 14px;
-  border: none;
-  border-radius: 8px;
-  background: #ef4444;
+  padding: 8px 20px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4); /* Светлая рамка */
+  border-radius: 12px;
+  background: transparent; /* Прозрачный фон */
   color: white;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .nav-right button:hover {
-  background: #dc2626;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 900px) {
@@ -74,4 +93,6 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+
+
 }

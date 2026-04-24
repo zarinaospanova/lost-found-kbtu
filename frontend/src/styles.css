@@ -1,18 +1,20 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f5f7fb;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background-color: #f0f2f9;
   color: #1f2937;
+  background-image:
+    radial-gradient(circle at 15% 15%, rgba(124, 58, 237, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.12) 0%, transparent 40%);
+  background-attachment: fixed;
 }
 
-/* контейнер */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* кнопки */
 button {
   padding: 10px 16px;
   border: none;
@@ -27,15 +29,14 @@ button:hover {
   background: #1d4ed8;
 }
 
-/* карточки */
 .card {
-  background: white;
-  border-radius: 14px;
+  background: #ffffff;
+  border-radius: 32px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
   padding: 16px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
-/* статусы */
 .badge {
   padding: 4px 10px;
   border-radius: 20px;
