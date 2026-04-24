@@ -20,3 +20,23 @@
 :host ::ng-deep .found-marker {
   background: #22c55e;
 }
+
+:host ::ng-deep .map-popup {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+:host ::ng-deep .popup-btn {
+  margin-top: 8px;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+:host ::ng-deep .popup-btn:hover {
+  background: #1d4ed8;
+}

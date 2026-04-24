@@ -1,7 +1,12 @@
 <div class="container">
 
   @if (loading) {
-    <p>Loading...</p>
+    @if (loading) {
+      <div class="loading-card">
+        <div class="spinner"></div>
+        <p>Loading post details...</p>
+      </div>
+    }
   }
 
   @if (!loading && post) {

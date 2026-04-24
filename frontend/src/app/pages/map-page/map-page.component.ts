@@ -1,7 +1,10 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { Router } from '@angular/router';
 import * as L from 'leaflet';
+
 import { PostService } from '../../services/post.service';
 import { LocationService } from '../../services/location.service';
+
 import { ItemPost } from '../../interfaces/item-post';
 import { Location } from '../../interfaces/location';
 
@@ -18,21 +21,22 @@ export class MapPageComponent implements AfterViewInit {
 
   private lostIcon = L.divIcon({
     className: 'custom-marker-wrapper',
-    html: '<div class="custom-marker lost-marker"></div>',
+    html: `<div class="custom-marker lost-marker"></div>`,
     iconSize: [18, 18],
     iconAnchor: [9, 9]
   });
 
   private foundIcon = L.divIcon({
     className: 'custom-marker-wrapper',
-    html: '<div class="custom-marker found-marker"></div>',
+    html: `<div class="custom-marker found-marker"></div>`,
     iconSize: [18, 18],
     iconAnchor: [9, 9]
   });
 
   constructor(
     private postService: PostService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private router: Router
   ) {}
 
   ngAfterViewInit(): void {
@@ -81,16 +85,31 @@ export class MapPageComponent implements AfterViewInit {
 
       const markerIcon = post.item_type === 'lost' ? this.lostIcon : this.foundIcon;
 
-      L.marker([lat, lng], { icon: markerIcon })
-        .addTo(this.map)
-        .bindPopup(`
+      const popupHtml = `
+        <div class="map-popup">
           <b>${post.title}</b><br>
           Type: ${post.item_type}<br>
           Status: ${post.status}<br>
           Category: ${post.category_name}<br>
           Location: ${post.building_name} - ${post.location_name}<br>
-          ${post.latitude != null && post.longitude != null ? 'Exact point selected' : 'Approximate location'}
-        `);
+          <button class="popup-btn" id="post-${post.id}">
+            Open Details
+          </button>
+        </div>
+      `;
+
+      const marker = L.marker([lat, lng], { icon: markerIcon })
+        .addTo(this.map)
+        .bindPopup(popupHtml);
+
+      marker.on('popupopen', () => {
+        const button = document.getElementById(`post-${post.id}`);
+        if (button) {
+          button.addEventListener('click', () => {
+            this.router.navigate(['/posts', post.id]);
+          });
+        }
+      });
     });
   }
 }
