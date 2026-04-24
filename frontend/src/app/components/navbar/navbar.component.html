@@ -10,7 +10,14 @@
   </div>
 
   <div class="nav-right">
-    <span>{{ authService.currentUser()?.username }}</span>
-    <button (click)="logout()">Logout</button>
+    @if (!authService.isLoggedIn()) {
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Create Account</a>
+    }
+
+    @if (authService.isLoggedIn()) {
+      <span>{{ authService.currentUser()?.username }}</span>
+      <button (click)="logout()">Logout</button>
+    }
   </div>
 </nav>
