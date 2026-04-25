@@ -24,7 +24,6 @@ def get_tokens_for_user(user):
         'access': str(refresh.access_token),
     }
 
-
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
 def register_view(request):
@@ -151,11 +150,11 @@ class ItemPostDetailAPIView(APIView):
 
     def patch(self, request, pk):
         post = self.get_object(pk)
-        self.check_object_permissions(request, post)
-
-        serializer = ItemPostSerializer(post, data=request.data, partial=True)
+        if post.author != request.user:
+            return Response({'error': 'Permission denied.'}, status=status.HTTP_403_FORBIDDEN)
+        serializer = PostSerializer(post, data=request.data, partial=True)
         if serializer.is_valid():
-            serializer.save(user=post.user)
+            serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
