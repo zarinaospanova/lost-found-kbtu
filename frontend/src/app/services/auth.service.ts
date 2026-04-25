@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  register(data: { username: string; email: string; password: string }): Observable<AuthResponse> {
+  register(data: { username: string; email: string; password: string; password2: string }): Observable<AuthResponse> {
     return this.http
       .post<AuthResponse>(`${this.apiUrl}/register/`, data)
       .pipe(tap((res) => this.saveAuth(res)));

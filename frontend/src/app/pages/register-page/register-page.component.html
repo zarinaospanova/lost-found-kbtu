@@ -1,12 +1,64 @@
-<div class="form-card">
+<form class="form-card" #form="ngForm" (ngSubmit)="register(form)">
   <h2>Register</h2>
 
   @if (errorMessage) {
     <p class="error">{{ errorMessage }}</p>
   }
 
-  <input [(ngModel)]="username" placeholder="Username" />
-  <input [(ngModel)]="email" type="email" placeholder="Email" />
-  <input [(ngModel)]="password" type="password" placeholder="Password" />
-  <button (click)="register()">Register</button>
-</div>
+  <input
+    name="username"
+    [(ngModel)]="username"
+    #usernameModel="ngModel"
+    placeholder="Username"
+    required
+  />
+  @if ((form.submitted || usernameModel.touched) && usernameModel.errors?.['required']) {
+    <p class="error">Username is required</p>
+  }
+
+  <input
+    name="email"
+    [(ngModel)]="email"
+    #emailModel="ngModel"
+    type="email"
+    placeholder="Email"
+    required
+    email
+  />
+  @if ((form.submitted || emailModel.touched) && emailModel.errors?.['required']) {
+    <p class="error">Email is required</p>
+  }
+  @if ((form.submitted || emailModel.touched) && emailModel.errors?.['email']) {
+    <p class="error">Enter a valid email</p>
+  }
+
+  <input
+    name="password"
+    [(ngModel)]="password"
+    #passwordModel="ngModel"
+    type="password"
+    placeholder="Password"
+    required
+    minlength="6"
+  />
+  @if ((form.submitted || passwordModel.touched) && passwordModel.errors?.['required']) {
+    <p class="error">Password is required</p>
+  }
+  @if ((form.submitted || passwordModel.touched) && passwordModel.errors?.['minlength']) {
+    <p class="error">Password must be at least 6 characters</p>
+  }
+
+  <input
+    name="password2"
+    [(ngModel)]="password2"
+    #password2Model="ngModel"
+    type="password"
+    placeholder="Confirm Password"
+    required
+  />
+  @if ((form.submitted || password2Model.touched) && password2Model.errors?.['required']) {
+    <p class="error">Confirm your password</p>
+  }
+
+  <button type="submit">Register</button>
+</form>
