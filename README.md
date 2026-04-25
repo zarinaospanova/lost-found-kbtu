@@ -105,4 +105,4 @@ ng serve
 🏁 Conclusion
 
 This project demonstrates a full-stack web application with real-world functionality, combining Angular frontend and Django REST backend with interactive map features.
-
+Presentation: https://canva.link/s8b5kknko2egjjp
