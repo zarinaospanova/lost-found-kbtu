@@ -1,0 +1,239 @@
+{
+  "info": {
+    "name": "Lost & Found Map API",
+    "_postman_id": "kbtu-lost-found-2026",
+    "description": "KBTU",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000/api" },
+    { "key": "access_token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/auth/register/", "host": ["{{base_url}}"], "path": ["auth", "register", ""] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"askar\",\n  \"email\": \"askar@kbtu.kz\",\n  \"password\": \"pass1234\",\n  \"password2\": \"pass1234\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"message\": \"User registered successfully.\",\n  \"username\": \"askar\",\n  \"refresh\": \"<refresh_token>\",\n  \"access\": \"<access_token>\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var json = pm.response.json();",
+                  "pm.collectionVariables.set('access_token', json.access);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/auth/login/", "host": ["{{base_url}}"], "path": ["auth", "login", ""] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"askar\",\n  \"password\": \"pass1234\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"refresh\": \"<refresh_token>\",\n  \"access\": \"<access_token>\",\n  \"username\": \"askar\",\n  \"user_id\": 1\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Posts",
+      "item": [
+        {
+          "name": "Get All Posts",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": { "raw": "{{base_url}}/posts/", "host": ["{{base_url}}"], "path": ["posts", ""] }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "body": "[\n  {\n    \"id\": 1,\n    \"author_username\": \"askar\",\n    \"category\": 1,\n    \"category_name\": \"Electronics\",\n    \"title\": \"Lost iPhone\",\n    \"description\": \"Lost near main building\",\n    \"status\": \"lost\",\n    \"latitude\": 43.21,\n    \"longitude\": 76.85,\n    \"location_description\": \"Main campus\",\n    \"comments_count\": 0,\n    \"created_at\": \"2026-04-24T10:00:00Z\",\n    \"updated_at\": \"2026-04-24T10:00:00Z\"\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Get Posts (filter lost)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": { "raw": "{{base_url}}/posts/?status=lost", "host": ["{{base_url}}"], "path": ["posts", ""], "query": [{ "key": "status", "value": "lost" }] }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/posts/", "host": ["{{base_url}}"], "path": ["posts", ""] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Lost laptop\",\n  \"description\": \"Black HP laptop\",\n  \"status\": \"lost\",\n  \"latitude\": 43.2150,\n  \"longitude\": 76.8543,\n  \"location_description\": \"Library, 2nd floor\",\n  \"category\": 1\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"id\": 2,\n  \"author_username\": \"askar\",\n  \"title\": \"Lost laptop\",\n  \"status\": \"lost\",\n  \"created_at\": \"2026-04-24T11:00:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Post by ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": { "raw": "{{base_url}}/posts/1/", "host": ["{{base_url}}"], "path": ["posts", "1", ""] }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Post (Mark Resolved)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/posts/1/", "host": ["{{base_url}}"], "path": ["posts", "1", ""] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"resolved\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Post",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": { "raw": "{{base_url}}/posts/1/", "host": ["{{base_url}}"], "path": ["posts", "1", ""] }
+          },
+          "response": [
+            {
+              "name": "204 No Content",
+              "status": "No Content",
+              "code": 204,
+              "body": "{\n  \"message\": \"Post deleted.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "My Posts",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": { "raw": "{{base_url}}/posts/my/", "host": ["{{base_url}}"], "path": ["posts", "my", ""] }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Comments",
+      "item": [
+        {
+          "name": "Get Comments for Post",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": { "raw": "{{base_url}}/posts/1/comments/", "host": ["{{base_url}}"], "path": ["posts", "1", "comments", ""] }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "body": "[\n  {\n    \"id\": 1,\n    \"author_username\": \"tomiris\",\n    \"text\": \"I saw this near the cafeteria!\",\n    \"created_at\": \"2026-04-24T12:00:00Z\"\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Add Comment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/posts/1/comments/", "host": ["{{base_url}}"], "path": ["posts", "1", "comments", ""] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"I think I saw it near the library entrance.\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"id\": 2,\n  \"author_username\": \"askar\",\n  \"text\": \"I think I saw it near the library entrance.\",\n  \"created_at\": \"2026-04-24T12:05:00Z\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Get Categories",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{access_token}}" }],
+            "url": { "raw": "{{base_url}}/categories/", "host": ["{{base_url}}"], "path": ["categories", ""] }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "body": "[\n  { \"id\": 1, \"name\": \"Electronics\" },\n  { \"id\": 2, \"name\": \"Documents\" },\n  { \"id\": 3, \"name\": \"Clothing\" },\n  { \"id\": 4, \"name\": \"Other\" }\n]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
