@@ -60,8 +60,6 @@ button:hover {
   background: #10b981;
 }
 
-/* TOAST DESIGN */
-
 .toast-container .ngx-toastr {
   border-radius: 12px;
   padding: 16px 18px;
